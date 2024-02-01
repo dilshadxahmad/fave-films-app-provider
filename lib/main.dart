@@ -1,4 +1,10 @@
+import 'package:fave_films_2/res/l10n/app_translations.dart';
+import 'package:fave_films_2/res/routes/app_route.dart';
+import 'package:fave_films_2/res/routes/route_name.dart';
+import 'package:fave_films_2/res/theme/theme_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/route_manager.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,12 +15,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return ScreenUtilInit(
+      builder: (context, child) {
+        return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeConfig.darkTheme(),
+          translations: AppTranslations(),
+          locale: const Locale('en', 'US'),
+          fallbackLocale: const Locale('en', 'US'),
+          getPages: AppRoute.appRoutes(),
+          initialRoute: RouteName.onboardingScreen,
+        );
+      },
     );
   }
 }
