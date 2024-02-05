@@ -1,4 +1,4 @@
-import 'package:fave_films_2/controllers/home/home_screen_controller.dart';
+import 'package:fave_films_2/view_models/home/home_screen_controller.dart';
 import 'package:fave_films_2/models/favorite/movie.dart';
 import 'package:fave_films_2/res/colors/app_colors.dart';
 import 'package:fave_films_2/res/urls/app_url.dart';

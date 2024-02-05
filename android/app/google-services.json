@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1059541267511",
+    "project_id": "fave-films-2",
+    "storage_bucket": "fave-films-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059541267511:android:c6cae531bfa3d7d6263bb2",
+        "android_client_info": {
+          "package_name": "com.example.fave_films_2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcVRJbe0PuaY-KQ3HViTweCi3JzNlG9zo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
