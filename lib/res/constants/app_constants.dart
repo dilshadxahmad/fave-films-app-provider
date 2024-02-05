@@ -14,4 +14,8 @@ class AppConstants {
   static const slowInternetMsg = "Please check your internet connection";
   static const badResponseFormat = "Bad response";
   static const feedExceptionMessage = "Feed Exception";
+  static const onlyAlphabets = "Alphabets Only!";
+  static const cantBeEmpty = "Field cannot be empty!";
+  static const enterValidEmail = "Enter Valid Email!";
+  static const passwordCantBeLess = "Password can't be less than 8 chars.";
 }

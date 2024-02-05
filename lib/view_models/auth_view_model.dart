@@ -7,15 +7,23 @@ class AuthViewModel extends ChangeNotifier {
   final _authService = ServiceLocator.instance<AuthService>();
 
   Future signUp(String email, String password) async {
-    String? result = await _authService.signUp(email, password);
-    notifyListeners();
-    return result;
+    try {
+      String? result = await _authService.signUp(email, password);
+      notifyListeners();
+      return result;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future signIn(String email, String password) async {
-    String? result = await _authService.signIn(email, password);
-    notifyListeners();
-    return result;
+    try {
+      String? result = await _authService.signIn(email, password);
+      notifyListeners();
+      return result;
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future signOut() async {

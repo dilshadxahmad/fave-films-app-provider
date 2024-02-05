@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:fave_films_2/data/response/api_response.dart';
 import 'package:flutter/material.dart';
 import 'package:fave_films_2/data/exeptions/app_exception.dart';
-import 'package:fave_films_2/data/response/request_status.dart';
 import 'package:fave_films_2/models/home/filter_model.dart';
 import 'package:fave_films_2/models/home/movies_response_model.dart';
 import 'package:fave_films_2/models/favorite/movie.dart';
@@ -12,12 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final _api = HomeRepository();
-
-  RequestStatus _requestStatus = RequestStatus.loading;
-  RequestStatus get requestStatus => _requestStatus;
-
-  MoviesResponseModel _moviesResponseModel = MoviesResponseModel();
-  MoviesResponseModel get moviesResponseModel => _moviesResponseModel;
 
   ApiResponse<MoviesResponseModel> _moviesApiResponse = ApiResponse.loading();
   ApiResponse<MoviesResponseModel> get moviesApiResponse => _moviesApiResponse;
@@ -42,16 +35,6 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _setRequestStatus(RequestStatus value) {
-    _requestStatus = value;
-    notifyListeners();
-  }
-
-  void _setMoviesResponseModel(MoviesResponseModel value) {
-    _moviesResponseModel = value;
-    notifyListeners();
-  }
-
   void _setMoviesApiResponse(ApiResponse<MoviesResponseModel> value) {
     _moviesApiResponse = value;
     notifyListeners();
@@ -59,13 +42,9 @@ class HomeViewModel extends ChangeNotifier {
 
   void getMovies(String movieType) {
     _setMoviesApiResponse(ApiResponse.loading());
-    // _setRequestStatus(RequestStatus.loading);
     _api.getMovies(movieType).then((value) {
       _setMoviesApiResponse(ApiResponse.completed(value));
-      // _setRequestStatus(RequestStatus.completed);
-      // _setMoviesResponseModel(value);
     }).onError((AppException error, stackTrace) {
-      // _setRequestStatus(RequestStatus.error);
       _setMoviesApiResponse(ApiResponse.error(error.toString()));
     });
     notifyListeners();
@@ -93,9 +72,6 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   bool isMovieFavorite(Movie movie) {
-    // return _favMovies.firstWhereOrNull((element) => element.id == movie.id) !=
-    //     null;
-
     for (var element in _favMovies) {
       if (element.id == movie.id) {
         return true;

@@ -1,20 +1,25 @@
 import 'package:fave_films_2/data/service_locator.dart';
 import 'package:fave_films_2/data/services/auth_service.dart';
+import 'package:fave_films_2/res/images/app_images.dart';
 import 'package:fave_films_2/res/routes/route_name.dart';
+import 'package:fave_films_2/res/urls/app_url.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
+
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
     // Simulate checking user authentication status
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       checkUserLoggedIn();
     });
   }
@@ -24,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isLoggedIn = authService.isUserLoggedIn();
 
     if (isLoggedIn) {
-      Get.offAndToNamed(RouteName.homeScreen);
+      Get.offAndToNamed(RouteName.onboardingScreen);
     } else {
       Get.offAndToNamed(RouteName.loginView);
     }
@@ -34,7 +39,16 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: CircularProgressIndicator(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(AppUrl.assetImagesUrl + AppImages.appLogo),
+            SizedBox(
+              height: 48.h,
+            ),
+            const CircularProgressIndicator(),
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,3 @@
-import 'package:fave_films_2/view_models/home/home_screen_controller.dart';
 import 'package:fave_films_2/data/response/request_status.dart';
 import 'package:fave_films_2/models/favorite/movie.dart';
 import 'package:fave_films_2/res/colors/app_colors.dart';
@@ -7,6 +6,7 @@ import 'package:fave_films_2/res/urls/app_url.dart';
 import 'package:fave_films_2/res/widgets/general_exception_widget.dart';
 import 'package:fave_films_2/res/widgets/movie_card_widget.dart';
 import 'package:fave_films_2/utils/helper_functions.dart';
+import 'package:fave_films_2/view_models/auth_view_model.dart';
 import 'package:fave_films_2/view_models/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +20,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeViewModel().getMovies('now_playing');
+    final userAuth = Provider.of<AuthViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('app_name'.tr),
@@ -43,6 +45,13 @@ class HomeView extends StatelessWidget {
             ),
             SizedBox(height: 30.h),
             Text('app_version'.tr),
+            ElevatedButton(
+              onPressed: () async {
+                await userAuth.signOut();
+                Get.offAndToNamed(RouteName.loginView);
+              },
+              child: const Text('Logout'),
+            ),
           ],
         ),
       ),

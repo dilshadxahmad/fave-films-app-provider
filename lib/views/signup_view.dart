@@ -1,31 +1,31 @@
 import 'package:fave_films_2/data/service_locator.dart';
 import 'package:fave_films_2/data/services/input_validation_service.dart';
+import 'package:fave_films_2/res/colors/app_colors.dart';
 import 'package:fave_films_2/res/images/app_images.dart';
 import 'package:fave_films_2/res/routes/route_name.dart';
 import 'package:fave_films_2/res/urls/app_url.dart';
 import 'package:fave_films_2/res/widgets/custom_text_field.dart';
 import 'package:fave_films_2/utils/helper_functions.dart';
 import 'package:fave_films_2/view_models/auth_view_model.dart';
-import 'package:fave_films_2/view_models/login_view_model.dart';
+import 'package:fave_films_2/view_models/signup_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class SignupView extends StatefulWidget {
+  const SignupView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignupView> createState() => _SignupViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignupViewState extends State<SignupView> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   final _inputValidationService =
       ServiceLocator.instance<InputValidationService>();
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final userAuth = Provider.of<AuthViewModel>(context);
@@ -34,8 +34,8 @@ class _LoginViewState extends State<LoginView> {
       body: Padding(
         padding: EdgeInsets.all(16.0.h),
         child: Form(
-          key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
+          key: _formKey,
           child: ListView(
             children: [
               SizedBox(
@@ -47,7 +47,7 @@ class _LoginViewState extends State<LoginView> {
                 height: 48.h,
               ),
               Text(
-                'Welcome, Login.',
+                'Welcome, Signup.',
                 style: Theme.of(context).textTheme.displayLarge,
               ),
               SizedBox(height: 24.0.h),
@@ -68,30 +68,36 @@ class _LoginViewState extends State<LoginView> {
               ElevatedButton(
                 onPressed: (_formKey.currentState?.validate() ?? false)
                     ? () async {
-                        Provider.of<LoginViewModel>(context, listen: false)
+                        Provider.of<SignupViewModel>(context, listen: false)
                             .updateIsLoading();
                         userAuth
-                            .signIn(_emailController.text, _passController.text)
+                            .signUp(_emailController.text, _passController.text)
                             .then((value) {
+                          HelperFunctions.showToast('Success, Login now!');
                           if (context.mounted) {
-                            Provider.of<LoginViewModel>(context, listen: false)
+                            Provider.of<SignupViewModel>(context, listen: false)
                                 .updateIsLoading();
                           }
-                          Get.offAndToNamed(RouteName.homeScreen);
+
+                          Get.offAndToNamed(RouteName.loginView);
                         }).onError((error, stackTrace) {
                           HelperFunctions.showToast(error.toString());
                         });
                       }
                     : null,
-                child: const Text('Login'),
+                child: Provider.of<SignupViewModel>(context).isLoading
+                    ? const CircularProgressIndicator(
+                        color: AppColors.black,
+                      )
+                    : const Text('Sign Up'),
               ),
               SizedBox(height: 24.0.h),
               TextButton(
                 onPressed: () {
-                  Get.offAndToNamed(RouteName.signupView);
+                  Get.offAndToNamed(RouteName.loginView);
                 },
                 child: Text(
-                  'Don\'t have an account? Sign up',
+                  'Already have an account? Login',
                   style: TextStyle(
                       color: Theme.of(context).textTheme.bodySmall?.color),
                 ),

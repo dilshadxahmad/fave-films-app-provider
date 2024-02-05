@@ -3,5 +3,6 @@ class RouteName {
   static const homeScreen = '/homeScreen';
   static const favMoviesScreen = '/favMoviesScreen';
   static const loginView = '/loginView';
+  static const signupView = '/signupView';
   static const splashView = '/splashView';
 }

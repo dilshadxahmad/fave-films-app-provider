@@ -11,7 +11,7 @@ class AuthService {
       );
       return null;
     } catch (e) {
-      return e.toString();
+      rethrow;
     }
   }
 
@@ -23,7 +23,7 @@ class AuthService {
       );
       return null;
     } catch (e) {
-      return e.toString();
+      rethrow;
     }
   }
 

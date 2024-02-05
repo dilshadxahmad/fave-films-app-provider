@@ -204,28 +204,36 @@ class ThemeConfig {
           fontSize: 14.sp,
           color: AppColors.white,
         ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.lightGrey.withOpacity(0.5),
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.r),
+          ),
+        ),
         disabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             color: Colors.transparent,
           ),
           borderRadius: BorderRadius.all(
-            Radius.circular(30.r),
+            Radius.circular(10.r),
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.transparent,
+          borderSide: BorderSide(
+            color: AppColors.lightGrey.withOpacity(0.25),
           ),
           borderRadius: BorderRadius.all(
-            Radius.circular(30.r),
+            Radius.circular(10.r),
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            color: Colors.transparent,
+          borderSide: BorderSide(
+            color: AppColors.lightGrey.withOpacity(0.5),
           ),
           borderRadius: BorderRadius.all(
-            Radius.circular(30.r),
+            Radius.circular(10.r),
           ),
         ),
         errorBorder: OutlineInputBorder(
@@ -248,6 +256,11 @@ class ThemeConfig {
           fontWeight: FontWeight.normal,
           fontSize: 14.sp,
           color: AppColors.white,
+        ),
+        errorStyle: TextStyle(
+          fontWeight: FontWeight.normal,
+          fontSize: 12.sp,
+          color: AppColors.orange,
         ),
       ),
       textSelectionTheme: TextSelectionThemeData(
