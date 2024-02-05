@@ -3,6 +3,7 @@ import 'package:fave_films_2/views/fav_movies_view.dart';
 import 'package:fave_films_2/views/home_view.dart';
 import 'package:fave_films_2/views/login_view.dart';
 import 'package:fave_films_2/views/onboarding_screen.dart';
+import 'package:fave_films_2/views/profile_view.dart';
 import 'package:fave_films_2/views/settings_view.dart';
 import 'package:fave_films_2/views/signup_view.dart';
 import 'package:fave_films_2/views/splash_view.dart';
@@ -37,6 +38,10 @@ class AppRoute {
         GetPage(
           name: RouteName.settingsView,
           page: () => const SettingsView(),
+        ),
+        GetPage(
+          name: RouteName.profileView,
+          page: () => const ProfileView(),
         ),
       ];
 }

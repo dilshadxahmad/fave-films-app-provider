@@ -52,7 +52,9 @@ class AppDrawer extends StatelessWidget {
           ),
           SizedBox(height: 16.h),
           PrimaryButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(RouteName.profileView);
+            },
             backgroundColor: AppColors.lightGrey.withOpacity(0.5),
             child: Text(
               'Profile',

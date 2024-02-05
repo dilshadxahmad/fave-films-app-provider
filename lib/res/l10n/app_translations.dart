@@ -25,6 +25,7 @@ class AppTranslations extends Translations {
           'favorites_cleared': 'Favorites are cleared.',
           'success': 'Success!',
           'settings': 'Settings',
+          'profile': 'Profile',
         },
       };
 }

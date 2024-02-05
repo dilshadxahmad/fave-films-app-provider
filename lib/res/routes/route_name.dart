@@ -6,4 +6,5 @@ class RouteName {
   static const homeView = '/homeView';
   static const favMoviesView = '/favMoviesView';
   static const settingsView = '/settingsView';
+  static const profileView = '/profileView';
 }
