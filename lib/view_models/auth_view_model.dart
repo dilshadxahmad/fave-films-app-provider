@@ -6,9 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthViewModel extends ChangeNotifier {
   final _authService = ServiceLocator.instance<AuthService>();
 
-  Future signUp(String email, String password) async {
+  Future signUp(String email, String password, String displayName) async {
     try {
-      String? result = await _authService.signUp(email, password);
+      String? result = await _authService.signUp(email, password, displayName);
       notifyListeners();
       return result;
     } catch (e) {

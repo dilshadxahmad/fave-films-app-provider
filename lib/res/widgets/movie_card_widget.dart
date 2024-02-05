@@ -1,7 +1,9 @@
 import 'package:fave_films_2/res/colors/app_colors.dart';
+import 'package:fave_films_2/view_models/theme_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class MovieCardWidget extends StatelessWidget {
   final String title;
@@ -21,7 +23,8 @@ class MovieCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(right: 16.w, bottom: 16.w),
+      // padding: EdgeInsets.only(right: 8.w, bottom: 16.w),
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 16.w),
       child: SizedBox(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,21 +43,22 @@ class MovieCardWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  height: 195.h,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0x30000000),
-                        Color(0x00000000),
-                        Color(0x00000000),
-                        Color(0x30000000),
-                      ],
+                if (Provider.of<ThemeViewModel>(context).isDark)
+                  Container(
+                    height: 195.h,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0x30000000),
+                          Color(0x00000000),
+                          Color(0x00000000),
+                          Color(0x30000000),
+                        ],
+                      ),
                     ),
                   ),
-                ),
                 Positioned(
                   top: 4.h,
                   right: 4.w,

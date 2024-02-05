@@ -1,8 +1,9 @@
 class RouteName {
-  static const onboardingScreen = '/';
-  static const homeScreen = '/homeScreen';
-  static const favMoviesScreen = '/favMoviesScreen';
+  static const onboardingView = '/';
+  static const splashView = '/splashView';
   static const loginView = '/loginView';
   static const signupView = '/signupView';
-  static const splashView = '/splashView';
+  static const homeView = '/homeView';
+  static const favMoviesView = '/favMoviesView';
+  static const settingsView = '/settingsView';
 }

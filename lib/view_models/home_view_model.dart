@@ -40,9 +40,10 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getMovies(String movieType) {
+  Future<void> getMovies(String movieType) async {
+    // await Future.delayed(const Duration(seconds: 1));
     _setMoviesApiResponse(ApiResponse.loading());
-    _api.getMovies(movieType).then((value) {
+    await _api.getMovies(movieType).then((value) {
       _setMoviesApiResponse(ApiResponse.completed(value));
     }).onError((AppException error, stackTrace) {
       _setMoviesApiResponse(ApiResponse.error(error.toString()));
@@ -69,6 +70,7 @@ class HomeViewModel extends ChangeNotifier {
     } else {
       _addToFavorites(movie);
     }
+    notifyListeners();
   }
 
   bool isMovieFavorite(Movie movie) {
@@ -94,6 +96,7 @@ class HomeViewModel extends ChangeNotifier {
   void clearFavMovies() {
     _favMovies.clear();
     _saveFavoriteMovies();
+    notifyListeners();
   }
 
   Future<void> _saveFavoriteMovies() async {

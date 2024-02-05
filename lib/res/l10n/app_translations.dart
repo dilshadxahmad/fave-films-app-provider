@@ -23,7 +23,8 @@ class AppTranslations extends Translations {
           'retry': 'Retry',
           'no_favorites_added_yet': 'Uh Oh! No favorites added yet.',
           'favorites_cleared': 'Favorites are cleared.',
-          'bro': 'Bro!',
+          'success': 'Success!',
+          'settings': 'Settings',
         },
       };
 }

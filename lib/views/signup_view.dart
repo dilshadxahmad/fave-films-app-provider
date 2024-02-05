@@ -1,12 +1,13 @@
 import 'package:fave_films_2/data/service_locator.dart';
 import 'package:fave_films_2/data/services/input_validation_service.dart';
-import 'package:fave_films_2/res/colors/app_colors.dart';
+import 'package:fave_films_2/res/widgets/primary_button.dart';
 import 'package:fave_films_2/res/images/app_images.dart';
 import 'package:fave_films_2/res/routes/route_name.dart';
 import 'package:fave_films_2/res/urls/app_url.dart';
 import 'package:fave_films_2/res/widgets/custom_text_field.dart';
 import 'package:fave_films_2/utils/helper_functions.dart';
 import 'package:fave_films_2/view_models/auth_view_model.dart';
+import 'package:fave_films_2/view_models/form_validation_view_model.dart';
 import 'package:fave_films_2/view_models/signup_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,6 +22,7 @@ class SignupView extends StatefulWidget {
 }
 
 class _SignupViewState extends State<SignupView> {
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   final _inputValidationService =
@@ -52,9 +54,19 @@ class _SignupViewState extends State<SignupView> {
               ),
               SizedBox(height: 24.0.h),
               CustomTextField(
+                controller: _nameController,
+                labelText: 'Full Name (optional)',
+              ),
+              SizedBox(height: 24.0.h),
+              CustomTextField(
                 customValidator: _inputValidationService.getEmailValidator(),
                 controller: _emailController,
                 labelText: 'Email',
+                onChanged: (value) {
+                  Provider.of<FormValidationViewModel>(context, listen: false)
+                      .updateFormValidity(
+                          _formKey.currentState?.validate() ?? false);
+                },
               ),
               SizedBox(height: 24.0.h),
               CustomTextField(
@@ -63,33 +75,36 @@ class _SignupViewState extends State<SignupView> {
                 controller: _passController,
                 labelText: 'Password',
                 obscureText: true,
+                onChanged: (value) {
+                  Provider.of<FormValidationViewModel>(context, listen: false)
+                      .updateFormValidity(
+                          _formKey.currentState?.validate() ?? false);
+                },
               ),
               SizedBox(height: 24.0.h),
-              ElevatedButton(
-                onPressed: (_formKey.currentState?.validate() ?? false)
+              PrimaryButton(
+                onPressed: Provider.of<FormValidationViewModel>(context)
+                        .isFormValid
                     ? () async {
                         Provider.of<SignupViewModel>(context, listen: false)
                             .updateIsLoading();
-                        userAuth
-                            .signUp(_emailController.text, _passController.text)
+                        await userAuth
+                            .signUp(_emailController.text, _passController.text,
+                                _nameController.text)
                             .then((value) {
-                          HelperFunctions.showToast('Success, Login now!');
-                          if (context.mounted) {
-                            Provider.of<SignupViewModel>(context, listen: false)
-                                .updateIsLoading();
-                          }
-
-                          Get.offAndToNamed(RouteName.loginView);
+                          HelperFunctions.showToast('Successfully signed up!');
+                          Get.offAndToNamed(RouteName.onboardingView);
                         }).onError((error, stackTrace) {
                           HelperFunctions.showToast(error.toString());
                         });
+                        if (context.mounted) {
+                          Provider.of<SignupViewModel>(context, listen: false)
+                              .updateIsLoading();
+                        }
                       }
                     : null,
-                child: Provider.of<SignupViewModel>(context).isLoading
-                    ? const CircularProgressIndicator(
-                        color: AppColors.black,
-                      )
-                    : const Text('Sign Up'),
+                isLoading: Provider.of<SignupViewModel>(context).isLoading,
+                child: const Text('Sign Up'),
               ),
               SizedBox(height: 24.0.h),
               TextButton(

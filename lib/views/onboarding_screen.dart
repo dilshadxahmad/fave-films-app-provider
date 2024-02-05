@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({super.key});
+class OnboardingView extends StatelessWidget {
+  const OnboardingView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class OnboardingScreen extends StatelessWidget {
             SizedBox(height: 16.h),
             SpecialButton(
               onPressed: () {
-                Get.offAndToNamed(RouteName.homeScreen);
+                Get.offAndToNamed(RouteName.homeView);
               },
               child: const Icon(Icons.chevron_right_rounded),
             ),

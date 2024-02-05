@@ -1,67 +1,66 @@
-import 'package:fave_films_2/view_models/home/home_screen_controller.dart';
 import 'package:fave_films_2/models/favorite/movie.dart';
 import 'package:fave_films_2/res/colors/app_colors.dart';
 import 'package:fave_films_2/res/urls/app_url.dart';
 import 'package:fave_films_2/res/widgets/movie_card_widget.dart';
+import 'package:fave_films_2/utils/helper_functions.dart';
+import 'package:fave_films_2/view_models/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
-class FavMoviesScreen extends StatelessWidget {
-  const FavMoviesScreen({super.key});
+class FavMoviesView extends StatelessWidget {
+  const FavMoviesView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final homeScreenController = Get.put(HomeScreenController());
+    final homeScreenController = Provider.of<HomeViewModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('favorites'.tr),
         actions: [
-          if (homeScreenController.rxFavMovies.isNotEmpty)
+          if (homeScreenController.favMovies.isNotEmpty)
             IconButton(
               onPressed: () async {
                 homeScreenController.clearFavMovies();
-                Get.snackbar(
-                  "bro".tr,
-                  "favorites_cleared".tr,
-                  colorText: Theme.of(context).textTheme.bodyMedium?.color,
-                  duration: const Duration(seconds: 1),
-                );
+                HelperFunctions.showToast(
+                    '${"success".tr} ${"favorites_cleared".tr}');
               },
               icon: const Icon(Icons.delete_outline_rounded),
             ),
         ],
       ),
-      body: Obx(
-        () {
-          if (homeScreenController.rxFavMovies.isNotEmpty) {
+      body: Builder(
+        builder: (context) {
+          if (homeScreenController.favMovies.isNotEmpty) {
             return ListView.builder(
-              itemCount: homeScreenController.rxFavMovies.length,
+              padding: EdgeInsets.only(left: 16.w),
+              itemCount: homeScreenController.favMovies.length,
               itemBuilder: (context, index) {
                 final movie = Movie(
-                  id: homeScreenController.rxFavMovies[index].id ?? 0,
-                  title: homeScreenController.rxFavMovies[index].title ?? "",
+                  id: homeScreenController.favMovies[index].id ?? 0,
+                  title: homeScreenController.favMovies[index].title ?? "",
                   releaseDate:
-                      homeScreenController.rxFavMovies[index].releaseDate ?? "",
+                      homeScreenController.favMovies[index].releaseDate ?? "",
                   overview:
-                      homeScreenController.rxFavMovies[index].overview ?? "",
+                      homeScreenController.favMovies[index].overview ?? "",
                   posterImageUrl:
-                      homeScreenController.rxFavMovies[index].posterImageUrl ??
+                      homeScreenController.favMovies[index].posterImageUrl ??
                           "",
                   imdbRating:
-                      (homeScreenController.rxFavMovies[index].imdbRating ??
-                              0.0)
+                      (homeScreenController.favMovies[index].imdbRating ?? 0.0)
                           .toString(),
                 );
                 return MovieCardWidget(
-                  title: homeScreenController.rxFavMovies[index].title ?? '',
+                  title: homeScreenController.favMovies[index].title ?? '',
                   backgroundImage: AppUrl.tmbdImagesUrl +
-                      (homeScreenController.rxFavMovies[index].posterImageUrl ??
+                      (homeScreenController.favMovies[index].posterImageUrl ??
                           ''),
                   releasedDate:
-                      homeScreenController.rxFavMovies[index].releaseDate ?? "",
+                      homeScreenController.favMovies[index].releaseDate ?? "",
                   imdbRating:
-                      homeScreenController.rxFavMovies[index].imdbRating ?? "",
+                      homeScreenController.favMovies[index].imdbRating ?? "",
                   overlayButton: IconButton(
                     onPressed: () {
                       homeScreenController.toggleFavorite(movie);

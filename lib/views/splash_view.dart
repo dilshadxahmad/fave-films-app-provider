@@ -29,7 +29,7 @@ class _SplashViewState extends State<SplashView> {
     bool isLoggedIn = authService.isUserLoggedIn();
 
     if (isLoggedIn) {
-      Get.offAndToNamed(RouteName.onboardingScreen);
+      Get.offAndToNamed(RouteName.homeView);
     } else {
       Get.offAndToNamed(RouteName.loginView);
     }
